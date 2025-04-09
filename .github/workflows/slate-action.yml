@@ -8,5 +8,5 @@ jobs:
     - name: Build documentation
       uses: docker://slatedocs/slate-action:2.0.0
       env:
-        DOC_BASE_FOLDER = "."
+        DOC_BASE_FOLDER:"."
     
