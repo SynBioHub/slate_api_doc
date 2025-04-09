@@ -9,3 +9,4 @@ jobs:
       uses: docker://slatedocs/slate-action:2.0.0
       env:
         DOC_BASE_FOLDER = "."
+    
