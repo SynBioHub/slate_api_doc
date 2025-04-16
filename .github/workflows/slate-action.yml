@@ -6,7 +6,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build documentation
-      uses: docker://decathlon/slate-builder-action:2.0.0
+      uses: docker://slatedocs/slate:latest
       env:
         DOC_BASE_FOLDER: ./source
     
