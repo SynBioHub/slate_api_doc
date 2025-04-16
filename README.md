@@ -1,56 +1,47 @@
-# Slate
+## SynBioHub Documentation
 
-  Modern IRC client built with web technologies and node.js for OSX, Linux, and eventually Windows.
+This API documentation is live at https://synbiohub.github.io/api-docs/
 
-  ![slate irc client](https://dl.dropboxusercontent.com/u/6396913/slate/Screen%20Shot%202013-10-19%20at%2011.45.08%20AM.png)
+This project is a customized API documentation site based on Slate.
 
-  ![](https://dl.dropboxusercontent.com/u/6396913/slate/Screen%20Shot%202013-09-17%20at%207.47.36%20AM.png)
+📄 Forked from: [slatedocs/slate](https://github.com/slatedocs/slate)
 
-## Features
+🐳 Built using Docker: Follows instructions from [Using Slate in Docker](https://github.com/slatedocs/slate/wiki/Using-Slate-in-Docker)
 
- - themable with CSS
- - scriptable with JavaScript
- - keyboard shortcuts and mapping
- - third-party plugin support
- - entirely built with web technologies for extensibility
+⚙️ Automated Build: GitHub Actions workflow adapted from [Slate Documentation Builder](https://github.com/marketplace/actions/slate-documentation-builder)
 
-## Installation
+✏️ Key Differences from the Original Slate Repo:
+Customized `index.html.md` with project-specific API details
 
-  TODO: when we have distribution set up
+Updated logo for branding
 
-## About
+This `README.md` for clear project guidance
 
- Slate is/was a single day hack project that was intended to be a kickstarter, however I ran out of time so now it's a partially-implemented IRC client! I had pretty lofty goals but unfortunately there's not enough time to go around, there are still many features missing, and it's not quite in a usable state, but with some community interest and love maybe it will get there some day! If not at least some useful/clean IRC libs are available at [https://github.com/slate](https://github.com/slate).
 
- Conceptually I really just wanted a clean, minimalistic IRC client, completely extensible through plugins. Ideally most of the core is written using such plugins. The entire thing should be themable, and the default theme should be programmer-friendly, aka get all the clutter out of my way, I just want to see chat logs.
 
-## Usage
+### Run a local instance:
 
- - press `?` to display the shortcut dialog
+#### Building Slate：
 
-## Building
+Grab the slate image:
 
- Install node, [node-webkit](https://github.com/rogerwang/node-webkit) and clone the repo.
+```docker pull slatedocs/slate```
 
- Build and run with:
+To use Docker to just build your site, run:
 
-```
-$ make
-```
+```docker run --rm --name slate -v $(pwd)/build:/srv/slate/build -v $(pwd)/source:/srv/slate/source slatedocs/slate build```
 
-  Build with:
+#### Running Slate：
 
-```
-$ make build
-```
+If you wish to run the development server for Slate to aid in working on the site, run:
 
-  Continuous build with:
+```docker run --rm --name slate -p 4567:4567 -v $(pwd)/source:/srv/slate/source slatedocs/slate serve```
+and you will be able to access your site at http://localhost:4567 until you stop the running container process.
 
-```
-$ watch make build
-```
+#### Publishing Your Docs to GitHub Pages:
 
-# License
+```git commit -a -m "Update index.md```
 
-  MIT
+```git push```
 
+```./deploy.sh```
