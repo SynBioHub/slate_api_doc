@@ -2,9 +2,9 @@ on: push
 name: Create Slate Documentation on Push
 jobs:
   slate-documentation:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v3
     - name: Build documentation
       uses: docker://slatedocs/slate-action:2.0.0
       env:
