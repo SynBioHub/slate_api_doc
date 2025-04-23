@@ -6,7 +6,7 @@ This project is a customized API documentation site based on Slate.
 
 📄 Forked from: [slatedocs/slate](https://github.com/slatedocs/slate)
 
-🐳 Built using Docker: Follows instructions from [Using Slate in Docker](https://github.com/slatedocs/slate/wiki/Using-Slate-in-Docker)
+🐳 Built using Docker: Follows instructions from [Using Slate in Docker](https://wiki.synbiohub.org/slate_api_doc/#about-synbiohub)
 
 ⚙️ Automated Build: GitHub Actions workflow adapted from [Slate Documentation Builder](https://github.com/marketplace/actions/slate-documentation-builder)
 
