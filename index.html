@@ -389,10 +389,19 @@
                     <a href="#search-twins" class="toc-h2 toc-link" data-title="Search Twins">Search Twins</a>
                   </li>
                   <li>
+                    <a href="#search-twins-count" class="toc-h2 toc-link" data-title="Search Twins Count">Search Twins Count</a>
+                  </li>
+                  <li>
                     <a href="#search-similar" class="toc-h2 toc-link" data-title="Search Similar">Search Similar</a>
                   </li>
                   <li>
+                    <a href="#search-similar-count" class="toc-h2 toc-link" data-title="Search Similar Count">Search Similar Count</a>
+                  </li>
+                  <li>
                     <a href="#search-uses" class="toc-h2 toc-link" data-title="Search Uses">Search Uses</a>
+                  </li>
+                  <li>
+                    <a href="#search-uses-count" class="toc-h2 toc-link" data-title="Search Uses Count">Search Uses Count</a>
                   </li>
                   <li>
                     <a href="#count-objects-by-type" class="toc-h2 toc-link" data-title="Count Objects by Type">Count Objects by Type</a>
@@ -1494,6 +1503,38 @@ This endpoint returns JSON metadata of the form:
 <span class="nx">fetch</span><span class="p">(</span><span class="nx">Url</span><span class="p">,</span><span class="nx">otherPram</span><span class="p">)</span>
     <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">res</span> <span class="o">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nx">buffer</span><span class="p">()).</span><span class="nx">then</span><span class="p">(</span><span class="nx">buf</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">buf</span><span class="p">.</span><span class="nx">toString</span><span class="p">()))</span>
     <span class="p">.</span><span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="o">=&gt;</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">))</span>
+</code></pre></div><h2 id='search-twins-count'>Search Twins Count</h2>
+<p><code>GET &lt;URI&gt;/twinsCount</code></p>
+
+<p>Returns the number of other components that have the same sequence.</p>
+<div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span>
+    <span class="s">'&lt;URI&gt;/twinsCount'</span><span class="p">,</span>
+    <span class="n">headers</span><span class="o">=</span><span class="p">{</span>
+        <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'text/plain'</span><span class="p">,</span>
+        <span class="s">'X-authorization'</span><span class="p">:</span> <span class="s">'&lt;token&gt;'</span>
+        <span class="p">},</span>
+<span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">status_code</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">content</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight plaintext tab-plaintext"><code>curl -X GET -H "Accept: text/plain" -H "X-authorization: &lt;token&gt;" &lt;URI&gt;/twinsCount
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">fetch</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">node-fetch</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">Url</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">&lt;URI&gt;/twinsCount</span><span class="dl">'</span>
+<span class="kd">const</span> <span class="nx">otherPram</span><span class="o">=</span><span class="p">{</span>
+    <span class="na">headers</span><span class="p">:{</span>
+        <span class="dl">"</span><span class="s2">content-type</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">text/plain; charset=UTF-8</span><span class="dl">"</span>
+    <span class="p">},</span>
+    <span class="na">method</span><span class="p">:</span><span class="dl">"</span><span class="s2">GET</span><span class="dl">"</span>
+<span class="p">};</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">res</span> <span class="o">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">text</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span> 
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">));</span>
 </code></pre></div><h2 id='search-similar'>Search Similar</h2>
 <p><code>GET &lt;URI&gt;/similar</code></p>
 
@@ -1524,6 +1565,40 @@ This endpoint returns JSON metadata of the form:
 <span class="nx">fetch</span><span class="p">(</span><span class="nx">Url</span><span class="p">,</span><span class="nx">otherPram</span><span class="p">)</span>
     <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">res</span> <span class="o">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nx">buffer</span><span class="p">()).</span><span class="nx">then</span><span class="p">(</span><span class="nx">buf</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">buf</span><span class="p">.</span><span class="nx">toString</span><span class="p">()))</span>
     <span class="p">.</span><span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="o">=&gt;</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">))</span>
+</code></pre></div><h2 id='search-similar-count'>Search Similar Count</h2>
+<p><code>GET &lt;URI&gt;/similarCount</code></p>
+
+<p>Returns the number of other components that have similar sequences.</p>
+
+<p>Note that this endpoint only works if SBOLExplorer is activated.</p>
+<div class="highlight"><pre class="highlight plaintext tab-plaintext"><code>curl -X GET -H "Accept: text/plain" -H "X-authorization: &lt;token&gt;" &lt;URI&gt;/similarCount
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span>
+    <span class="s">'&lt;URI&gt;/similarCount'</span><span class="p">,</span>
+    <span class="n">headers</span><span class="o">=</span><span class="p">{</span>
+        <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'text/plain'</span><span class="p">,</span>
+        <span class="s">'X-authorization'</span><span class="p">:</span> <span class="s">'&lt;token&gt;'</span>
+        <span class="p">},</span>
+<span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">status_code</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">content</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">fetch</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">node-fetch</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">Url</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">&lt;URI&gt;/similarCount</span><span class="dl">'</span>
+<span class="kd">const</span> <span class="nx">otherPram</span><span class="o">=</span><span class="p">{</span>
+    <span class="na">headers</span><span class="p">:{</span>
+        <span class="dl">"</span><span class="s2">content-type</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">text/plain; charset=UTF-8</span><span class="dl">"</span>
+    <span class="p">},</span>
+    <span class="na">method</span><span class="p">:</span><span class="dl">"</span><span class="s2">GET</span><span class="dl">"</span>
+<span class="p">};</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">res</span> <span class="o">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">text</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span> 
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">));</span>
 </code></pre></div><h2 id='search-uses'>Search Uses</h2>
 <p><code>GET &lt;URI&gt;/uses</code></p>
 
@@ -1565,6 +1640,40 @@ This endpoint returns JSON metadata of the form:
 <span class="nx">fetch</span><span class="p">(</span><span class="nx">Url</span><span class="p">,</span><span class="nx">otherPram</span><span class="p">)</span>
     <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">res</span> <span class="o">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nx">buffer</span><span class="p">()).</span><span class="nx">then</span><span class="p">(</span><span class="nx">buf</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">buf</span><span class="p">.</span><span class="nx">toString</span><span class="p">()))</span>
     <span class="p">.</span><span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="o">=&gt;</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">))</span>
+</code></pre></div><h2 id='search-uses-count'>Search Uses Count</h2>
+<p><code>GET &lt;URI&gt;/usesCount</code></p>
+
+<p>Returns the number of any other object that refers to this object, for example, if this is a component, it will return the number of all other components that use this as a sub-component.</p>
+<div class="highlight"><pre class="highlight plaintext tab-plaintext"><code>curl -X GET -H "Accept: text/plain" -H "X-authorization: &lt;token&gt;" &lt;URI&gt;/usesCount
+
+This endpoint returns the number of count.
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span>
+    <span class="s">'&lt;URI&gt;/usesCount'</span><span class="p">,</span>
+    <span class="n">headers</span><span class="o">=</span><span class="p">{</span>
+        <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'text/plain'</span><span class="p">,</span>
+        <span class="s">'X-authorization'</span><span class="p">:</span> <span class="s">'&lt;token&gt;'</span>
+        <span class="p">},</span>
+<span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">status_code</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">content</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">fetch</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">node-fetch</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">Url</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">&lt;SynBioHub URL&gt;/public/bsu/BO_5629/1/usesCount</span><span class="dl">'</span>
+<span class="kd">const</span> <span class="nx">otherPram</span><span class="o">=</span><span class="p">{</span>
+    <span class="na">headers</span><span class="p">:{</span>
+        <span class="dl">"</span><span class="s2">content-type</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">text/plain; charset=UTF-8</span><span class="dl">"</span>
+    <span class="p">},</span>
+    <span class="na">method</span><span class="p">:</span><span class="dl">"</span><span class="s2">GET</span><span class="dl">"</span>
+<span class="p">};</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">res</span> <span class="o">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">text</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span> 
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">));</span>
 </code></pre></div><h2 id='count-objects-by-type'>Count Objects by Type</h2>
 <p><code>GET &lt;SynBioHub URL&gt;/&lt;ObjectType&gt;/count</code></p>
 
