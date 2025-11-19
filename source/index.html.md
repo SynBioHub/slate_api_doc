@@ -945,6 +945,49 @@ fetch(Url,otherPram)
     .catch (error=>console.log(error))
 ```
 
+## Search Twins Count
+
+`GET <URI>/twinsCount`
+
+Returns the number of other components that have the same sequence.
+
+```python
+import requests
+
+response = requests.get(
+    '<URI>/twinsCount',
+    headers={
+        'Accept': 'text/plain',
+        'X-authorization': '<token>'
+        },
+)
+
+print(response.status_code)
+print(response.content)
+```
+
+```plaintext
+curl -X GET -H "Accept: text/plain" -H "X-authorization: <token>" <URI>/twinsCount
+```
+
+```javascript
+const fetch = require("node-fetch");
+const Url = '<URI>/twinsCount'
+const otherPram={
+    headers:{
+        "content-type" : "text/plain; charset=UTF-8"
+    },
+    method:"GET"
+};
+fetch(url)
+  .then(res => res.text())
+  .then(text => {
+    const value = Number(text); 
+    console.log(value);
+  })
+  .catch(error => console.error(error));
+```
+
 ## Search Similar 
 
 `GET <URI>/similar`
@@ -985,6 +1028,52 @@ fetch(Url,otherPram)
     .then(res => res.buffer()).then(buf => console.log(buf.toString()))
     .catch (error=>console.log(error))
 ```
+
+## Search Similar Count
+
+`GET <URI>/similarCount`
+
+Returns the number of other components that have similar sequences.
+
+Note that this endpoint only works if SBOLExplorer is activated.
+
+```plaintext
+curl -X GET -H "Accept: text/plain" -H "X-authorization: <token>" <URI>/similarCount
+```
+
+```python
+import requests
+
+response = requests.get(
+    '<URI>/similarCount',
+    headers={
+        'Accept': 'text/plain',
+        'X-authorization': '<token>'
+        },
+)
+
+print(response.status_code)
+print(response.content)
+```
+
+```javascript
+const fetch = require("node-fetch");
+const Url = '<URI>/similarCount'
+const otherPram={
+    headers:{
+        "content-type" : "text/plain; charset=UTF-8"
+    },
+    method:"GET"
+};
+fetch(url)
+  .then(res => res.text())
+  .then(text => {
+    const value = Number(text); 
+    console.log(value);
+  })
+  .catch(error => console.error(error));
+```
+
 ## Search Uses
 
 `GET <URI>/uses`
@@ -1035,6 +1124,51 @@ const otherPram={
 fetch(Url,otherPram)
     .then(res => res.buffer()).then(buf => console.log(buf.toString()))
     .catch (error=>console.log(error))
+```
+
+## Search Uses Count
+
+`GET <URI>/usesCount`
+
+Returns the number of any other object that refers to this object, for example, if this is a component, it will return the number of all other components that use this as a sub-component.
+
+```plaintext
+curl -X GET -H "Accept: text/plain" -H "X-authorization: <token>" <URI>/usesCount
+
+This endpoint returns the number of count.
+```
+
+```python
+import requests
+
+response = requests.get(
+    '<URI>/usesCount',
+    headers={
+        'Accept': 'text/plain',
+        'X-authorization': '<token>'
+        },
+)
+
+print(response.status_code)
+print(response.content)
+```
+
+```javascript
+const fetch = require("node-fetch");
+const Url = '<SynBioHub URL>/public/bsu/BO_5629/1/usesCount'
+const otherPram={
+    headers:{
+        "content-type" : "text/plain; charset=UTF-8"
+    },
+    method:"GET"
+};
+fetch(url)
+  .then(res => res.text())
+  .then(text => {
+    const value = Number(text); 
+    console.log(value);
+  })
+  .catch(error => console.error(error));
 ```
 
 ## Count Objects by Type
