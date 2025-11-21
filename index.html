@@ -325,20 +325,6 @@
               </ul>
           </li>
           <li>
-            <a href="#installation" class="toc-h1 toc-link" data-title="Installation">Installation</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#from-prebuilt-image" class="toc-h2 toc-link" data-title="From Prebuilt Image">From Prebuilt Image</a>
-                  </li>
-                  <li>
-                    <a href="#from-source" class="toc-h2 toc-link" data-title="From Source">From Source</a>
-                  </li>
-                  <li>
-                    <a href="#nginx-configuration" class="toc-h2 toc-link" data-title="NGINX configuration">NGINX configuration</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
             <a href="#user-endpoints" class="toc-h1 toc-link" data-title="User Endpoints">User Endpoints</a>
               <ul class="toc-list-h2">
                   <li>
@@ -687,123 +673,6 @@
 <ul>
 <li><a href="http://www.antarctic-design.co.uk/">Antarctic Design</a> </li>
 </ul>
-<h1 id='installation'>Installation</h1><h2 id='from-prebuilt-image'>From Prebuilt Image</h2><h3 id='install-docker'>Install Docker</h3>
-<p>First, install <a href="https://docs.docker.com/install/">Docker</a> and <a href="https://docs.docker.com/compose/install/">Docker Compose</a>.</p>
-
-<p>Ensure that the Docker daemon is running on your system before continuing. On Mac and Windows, a small whale icon in the system tray indicates Docker is running.</p>
-
-<p>On Ubuntu, start docker using: </p>
-
-<p><code>systemctl start docker</code></p>
-<h3 id='starting-a-synbiohub-instance'>Starting a SynBioHub Instance</h3>
-<p>First, pull the docker-compose configuration:: </p>
-
-<p><code>git clone https://github.com/synbiohub/synbiohub-docker</code></p>
-
-<p>Then, start SynBioHub with: </p>
-
-<p><code>docker-compose --file ./synbiohub-docker/docker-compose.yml up</code></p>
-
-<p>If you would like to start SynBioHub with <a href="https://github.com/SynBioDex/SBOLExplorer">SBOLExplorer</a> use the following commands instead: </p>
-
-<p><code>sysctl -w vm.max_map_count=262144</code></p>
-
-<p><code>docker-compose --file ./synbiohub-docker/docker-compose.yml --file ./synbiohub-docker/docker-compose.explorer.yml up</code></p>
-<h3 id='configuring'>Configuring</h3>
-<p>In a web browser, visit </p>
-
-<p><code>http://localhost:7777/</code></p>
-
-<p>On the first startup, you will be taken to the SynBioHub Setup Page, which enables basic setup of the site. After the first setup, the Admin Portal will allow admin users to update their site configuration. </p>
-<h3 id='sendgrid-email-setup'>SendGrid email setup</h3>
-<p>In order to enable SynBioHub to send account-related emails, you need a <a href="https://sendgrid.com/">SendGrid</a> account and API key. Once you have created your account, you should click &quot;Settings&quot; in the left bar, then &quot;API Keys&quot;. On the resulting page, click the &quot;Create API Key&quot; button in the upper-right corner, and give your new API key a name. You should see the key on the next page. Copy the key and paste it into the &quot;SendGrid API Key&quot; in the Mail page on the SynBioHub admin dashboard. Save the API key in SynBioHub and you are ready to begin sending email. </p>
-<h3 id='updating'>Updating</h3>
-<p>To update a container, pull the new version and start it. </p>
-
-<p><code>cd synbiohub-docker</code></p>
-
-<p><code>git pull</code></p>
-
-<p><code>cd ..</code></p>
-
-<p><code>## if you are not running SBOL Explorer</code></p>
-
-<p><code>docker-compose --file synbiohub-docker/docker-compose.yml pull synbiohub</code></p>
-
-<p><code>docker-compose --file synbiohub-docker/docker-compose.yml up</code></p>
-
-<p><code>## If you are running SBOL Explorer:</code></p>
-
-<p><code>docker-compose --file synbiohub-docker/docker-compose.yml --file synbiohub-docker/docker-compose.explorer.yml pull synbiohub</code></p>
-
-<p><code>docker-compose --file synbiohub-docker/docker-compose.yml --file synbiohub-docker/docker-compose.explorer.yml up</code></p>
-<h6 id='persistent-logs-update'>PERSISTENT LOGS UPDATE</h6>
-<p>If you are updating from a version earlier than 1.5.2, then you must execute the following command to setup persistent log files: </p>
-
-<p><code>docker exec -it synbiohub-docker_synbiohub_1 mkdir /mnt/data/logs</code></p>
-<h4 id='if-you-are-updating-from-a-version-of-synbiohub-earlier-than-1-3-0-to-1-3-0-or-later-you-must-execute-the-following-steps-to-persist-your-data-between-instances'>If you are updating from a version of SynBioHub earlier than 1.3.0 to 1.3.0 or later, you must execute the following steps to persist your data between instances!</h4>
-<p><code>docker exec synbiohub cp /opt/synbiohub/synbiohub.sqlite /mnt/data/synbiohub.sqlite</code></p>
-
-<p><code>docker exec synbiohub cp -R /opt/synbiohub/uploads /mnt/data/uploads</code></p>
-
-<p><code>docker exec synbiohub chown synbiohub /mnt/data/synbiohub.sqlite</code></p>
-
-<p><code>docker exec synbiohub chgrp synbiohub /mnt/data/synbiohub.sqlite</code></p>
-
-<p><code>docker exec synbiohub chown -R synbiohub /mnt/data/uploads</code></p>
-
-<p><code>docker exec synbiohub chgrp -R synbiohub /mnt/data/uploads</code></p>
-
-<p>To update to the latest version of SynBioHub, first stop and remove the container: </p>
-
-<p><code>docker stop synbiohub</code></p>
-
-<p><code>docker rm synbiohub</code></p>
-
-<p>Then pull the latest version: </p>
-
-<p><code>docker pull synbiohub/synbiohub:1.3.0</code></p>
-
-<p>Finally, run a new container with the latest image: </p>
-
-<p><code>docker run -v synbiohub:/mnt -p 7777:7777 --name synbiohub -d synbiohub/synbiohub:1.3.0</code></p>
-<h2 id='from-source'>From Source</h2>
-<p>Follow the instructions on the <a href="https://github.com/synbiohub/synbiohub">GitHub README</a> to install SynBioHub locally on your system. If you would like SynBioHub to run as a service, you can enable Virtuoso using systemd or open a virtual terminal using tmux or GNU screen and run </p>
-
-<p><code>sudo /usr/local/bin/virtuoso-t +configfile $YOUR_CONFIG_FILE</code></p>
-
-<p>You should also run SynBioHub as a system service or using a virtual terminal and the command</p>
-
-<p><code>npm start</code></p>
-
-<p>If you are doing development work, you can start SynBioHub with the command </p>
-
-<p><code>npm run-script dev</code></p>
-
-<p>which will restart the application with any change to the JavaScript source. </p>
-<h2 id='nginx-configuration'>NGINX configuration</h2>
-<p>Instructions for managing nginx server blocks can be found <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-16-04#step-three-create-server-block-files-for-each-domain">here</a>.</p>
-
-<p>The server block for a SynBioHub installation listening on port 7777 is to the right </p>
-<div class="highlight"><pre class="highlight plaintext"><code>client_max_body_size 800m;
-proxy_connect_timeout 6000;
-proxy_send_timeout 6000;
-proxy_read_timeout 6000;
-send_timeout 6000;
-server {
-        listen 80;
-        server_name _;
-
-        location / {
-                proxy_set_header X-Real-IP  $remote_addr;
-                proxy_set_header X-Forwarded-Server $host;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header Host $host;
-                proxy_pass http://127.0.0.1:7777$request_uri;
-        }
-}
-</code></pre></div>
-<p>This is most useful when you would like to host SynBioHub on a subdomain alongside other content (using nginx as an HTTP proxy) or using HTTPS. </p>
 <h1 id='user-endpoints'>User Endpoints</h1>
 <p>Endpoints that control user related functions</p>
 <h2 id='login'>Login</h2>
@@ -1704,7 +1573,7 @@ This endpoint returns the number of count.
     <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">res</span> <span class="o">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nx">buffer</span><span class="p">()).</span><span class="nx">then</span><span class="p">(</span><span class="nx">buf</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">buf</span><span class="p">.</span><span class="nx">toString</span><span class="p">()))</span>
     <span class="p">.</span><span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="o">=&gt;</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">))</span>
 </code></pre></div>
-<p>Note that you can replace <code>&lt;ObjectType&gt;</code> with any SBOL object type, such as <code>ComponentDefinition</code>, <code>SequenceAnnotation</code>, etc. See <a href="https://sbolstandard.org/data-model-specification/">here</a> for more object types</p>
+<p>Note that you can replace <code>&lt;ObjectType&gt;</code> with any SBOL object type, such as <code>ComponentDefinition</code>, <code>SequenceAnnotation</code>, etc. See <a href="https://sbolstandard.org/datamodel-specification/">here</a> for more object types</p>
 <h2 id='sparql-query'>SPARQL Query</h2>
 <p><code>GET &lt;SynBioHub URL&gt;/sparql?query=&lt;SPARQL query&gt;</code></p>
 
